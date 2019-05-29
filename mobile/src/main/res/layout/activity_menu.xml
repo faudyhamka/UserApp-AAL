@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main"
+    tools:context=".Menu">
+
+    <Button
+        android:id="@+id/tomain"
+        android:layout_width="134dp"
+        android:layout_height="138dp"
+        android:layout_alignTop="@+id/toenum"
+        android:layout_alignEnd="@+id/toip"
+        android:background="@android:color/transparent"
+        android:onClick="goToMain" />
+
+    <Button
+        android:id="@+id/toip"
+        android:layout_width="144dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="339dp"
+        android:background="@android:color/transparent"
+        android:onClick="goToIPAge" />
+
+    <Button
+        android:id="@+id/toenum"
+        android:layout_width="142dp"
+        android:layout_height="136dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="177dp"
+        android:layout_marginEnd="24dp"
+        android:background="@android:color/transparent"
+        android:onClick="goToENumber" />
+
+    <Button
+        android:id="@+id/tomap"
+        android:layout_width="146dp"
+        android:layout_height="132dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="335dp"
+        android:layout_marginEnd="23dp"
+        android:background="@android:color/transparent"
+        android:onClick="goToMap"
+        android:text=" " />
+</RelativeLayout>

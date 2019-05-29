@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/enumber"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ENumber">
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="299dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="111dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto_thin"
+        android:gravity="center_horizontal"
+        android:inputType="phone"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="111dp"
+        android:layout_marginEnd="109dp"
+        android:layout_marginBottom="42dp"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/num0"
+        android:layout_width="320dp"
+        android:layout_height="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="@font/roboto_thin"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/num1"
+        android:layout_width="320dp"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="160dp"
+        android:fontFamily="@font/roboto_thin"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/num2"
+        android:layout_width="320dp"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="200dp"
+        android:fontFamily="@font/roboto_thin"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/num3"
+        android:layout_width="320dp"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="240dp"
+        android:fontFamily="@font/roboto_thin"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/num4"
+        android:layout_width="320dp"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="280dp"
+        android:fontFamily="@font/roboto_thin"
+        android:textColor="#CBE9D7"
+        android:textSize="24sp" />
+
+</RelativeLayout>

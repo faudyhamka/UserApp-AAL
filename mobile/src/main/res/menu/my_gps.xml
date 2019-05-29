@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/shareloc"
+        android:orderInCategory="100"
+        android:title="Share Location"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/homeinit"
+        android:orderInCategory="100"
+        android:title="Save Home Location"
+        app:showAsAction="never" />
+
+</menu>

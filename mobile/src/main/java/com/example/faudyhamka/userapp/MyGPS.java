@@ -106,7 +106,7 @@ public class MyGPS extends AppCompatActivity
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(5000);
+        request.setInterval(4000);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -159,6 +159,7 @@ public class MyGPS extends AppCompatActivity
                 editor.putString(inputLat, a);
                 editor.putString(inputLon, b);
                 editor.apply();
+                Toast.makeText(getApplicationContext(), "Home location added : ("+a+","+b+")", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

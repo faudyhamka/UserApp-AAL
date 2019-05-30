@@ -13,6 +13,7 @@ import com.example.faudyhamka.userapp.events.SensorUpdatedEvent;
 import com.example.shared.ClientPaths;
 import com.example.shared.DataMapKeys;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.DataApi;
@@ -21,7 +22,9 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
-
+import com.google.android.gms.wearable.DataClient;
+import com.google.android.gms.wearable.MessageClient;
+import com.google.android.gms.wearable.NodeClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -40,9 +43,7 @@ public class RemoteSensorManager {
     private GoogleApiClient googleApiClient;
 
     public static synchronized RemoteSensorManager getInstance(Context context) {
-        if (instance == null) {
-            instance = new RemoteSensorManager(context.getApplicationContext());
-        }
+        if (instance == null) { instance = new RemoteSensorManager(context.getApplicationContext()); }
         return instance;
     }
 
@@ -162,17 +163,16 @@ public class RemoteSensorManager {
     private void controlMeasurementInBackground(final String path) {
         if (validateConnection()) {
             List<Node> nodes = Wearable.NodeApi.getConnectedNodes(googleApiClient).await().getNodes();
+
             Log.d(TAG, "Sending to nodes: " + nodes.size());
 
             for (Node node : nodes) {
-                Log.d(TAG, "sent to:" + " " + node.getDisplayName());
                 Wearable.MessageApi.sendMessage(
                         googleApiClient, node.getId(), path, null
                 ).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
                     @Override
                     public void onResult(MessageApi.SendMessageResult sendMessageResult) {
                         Log.d(TAG, "controlMeasurementInBackground(" + path + "): " + sendMessageResult.getStatus().isSuccess());
-//                        Log.d(TAG, "success sent to:" + " " + node.getDisplayName());
                     }
                 });
             }

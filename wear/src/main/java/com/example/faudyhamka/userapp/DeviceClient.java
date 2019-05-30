@@ -42,7 +42,7 @@ public class DeviceClient {
         this.context = context;
 
         //1. Membuat GoogleApiClient instance untuk terhubung pada service wearable
-        Log.d("DC", "Test2");
+        Log.d(TAG, "Test2");
         googleApiClient = new GoogleApiClient.Builder(context).addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks(){
             @Override
             public void onConnected(Bundle connectionHint) {
@@ -63,7 +63,7 @@ public class DeviceClient {
                 })
                 .addApi(Wearable.API).build();
         googleApiClient.connect();
-        Log.d("DC", "test2 ");
+        Log.d(TAG, "test2 ");
 
         executorService = Executors.newCachedThreadPool();
         lastSensorData = new SparseLongArray();
@@ -150,7 +150,6 @@ public class DeviceClient {
         ConnectionResult result = googleApiClient
                 .blockingConnect(CLIENT_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS);
         return result.isSuccess();
-
     }
 
     private void send(PutDataRequest putDataRequest) {

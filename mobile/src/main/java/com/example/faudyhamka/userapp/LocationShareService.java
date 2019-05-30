@@ -40,7 +40,7 @@ public class LocationShareService extends Service implements LocationListener, G
     public LocationShareService() {
     }
 
-    public static final String myPreference = "mypref";
+    public static final String myPreference = "homepref";
     public static final String mypreference = "mypref";
     public static final String inputIP = "input_IP";
     public static final String inputLat = "input_Lat";
@@ -51,8 +51,8 @@ public class LocationShareService extends Service implements LocationListener, G
     String lat, lng, ip;
     Configuration conf = new Configuration();
     RequestQueue queue;
-    SharedPreferences sharedpreferences;
-    boolean a = false;
+    SharedPreferences sharedpreferences, sharedPreferences;
+    boolean a = false, checka = false;
     private RemoteSensorManager remoteSensorManager;
 
     NotificationCompat.Builder notification;
@@ -86,7 +86,7 @@ public class LocationShareService extends Service implements LocationListener, G
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(2000);
+        request.setInterval(4000);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -123,12 +123,22 @@ public class LocationShareService extends Service implements LocationListener, G
     @Override
     public void onLocationChanged(Location location) {
         latLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
-        shareLocation();
-        compareLocation();
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(inputLat) && sharedPreferences.contains(inputLon)) {
+            String Lat = sharedPreferences.getString(inputLat, ""), Lon = sharedPreferences.getString(inputLon, "");
+            if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
+                shareLocation();
+                a = true;
+            }
+/*            if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || () {
+                a = false;
+            }
+            if (checka != a) { if (a) {remoteSensorManager.StartXYZ();} else {remoteSensorManager.StopXYZ();} checka = a;}
+*/        }
     }
 
     public void shareLocation() {
-        lat = Double.toString(latLngCurrent.latitude); lng = Double.toString(latLngCurrent.longitude);
+        lat = String.valueOf(latLngCurrent.latitude); lng = String.valueOf(latLngCurrent.longitude);
         try {
             JSONObject location = new JSONObject();
             location.put("lat", lat);
@@ -147,28 +157,6 @@ public class LocationShareService extends Service implements LocationListener, G
             queue.add(request);
         } catch (Exception e) { e.printStackTrace(); }
     }
-
-    public void compareLocation() {
-/*        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(inputLat) && sharedPreferences.contains(inputLon)) {
-            String Lat = sharedPreferences.getString(inputLat, ""), Lon = sharedPreferences.getString(inputLon, "");
-            if (!a) {
-                if (Math.round(latLngCurrent.latitude) + 1 > Double.parseDouble(Lat)) {
-                    if (Math.round(latLngCurrent.longitude) + 1 > Double.parseDouble(Lon)) {
-                        remoteSensorManager.stopXYZ();
-                        a = true;
-                    }
-                }
-            } else {
-                if (Math.round(latLngCurrent.latitude) + 1 < Double.parseDouble(Lat)) {
-                    if (Math.round(latLngCurrent.longitude) + 1 < Double.parseDouble(Lon)) {
-                        remoteSensorManager.startXYZ();
-                        a = false;
-                    }
-                }
-            }
-        }
-*/    }
 
     @Override
     public void onDestroy() {

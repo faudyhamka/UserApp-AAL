@@ -17,8 +17,8 @@ public class ENumber extends AppCompatActivity {
     EditText enumber;
     Button butt;
     TextView num0, num1, num2, num3, num4;
+    String en0, en1, en2, en3, en4;
     Integer i;
-    boolean a;
     Number n = new Number();
     SharedPreferences sharedpreferences;
 
@@ -36,11 +36,11 @@ public class ENumber extends AppCompatActivity {
         num4 = (TextView) findViewById(R.id.num4);
 
         sharedpreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        String en0 = sharedpreferences.getString("number0", "");
-        String en1 = sharedpreferences.getString("number1", "");
-        String en2 = sharedpreferences.getString("number2", "");
-        String en3 = sharedpreferences.getString("number3", "");
-        String en4 = sharedpreferences.getString("number4", "");
+        en0 = sharedpreferences.getString("number0", "");
+        en1 = sharedpreferences.getString("number1", "");
+        en2 = sharedpreferences.getString("number2", "");
+        en3 = sharedpreferences.getString("number3", "");
+        en4 = sharedpreferences.getString("number4", "");
         num0.setText(en0); num1.setText(en1);
         num2.setText(en2); num3.setText(en3);
         num4.setText(en4);
@@ -52,16 +52,16 @@ public class ENumber extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "You must fill an emergency number", Toast.LENGTH_SHORT).show();
                 } else {
                     i = 0;
-                    a = false;
-                    while (!a || i<5) {
-                        if (n.getNum(i).length() < 3) {
+                    while (true) {
+                        String check = sharedpreferences.getString("number"+i, "");
+                        if (check.length() < 3) {
                             String m = enumber.getText().toString();
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("number"+Integer.toString(i), m);
                             editor.apply();
                             n.setNum(i, m);
-                            a = true;
-                        }
+                            break;
+                        } else if (i==5) {break;}
                         i++;
                     }
                     Intent myIntent = new Intent(ENumber.this,Menu.class);
@@ -69,5 +69,60 @@ public class ENumber extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void del1(View view) {
+        if (en0.length()>3) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("number0", " ");
+            editor.apply();
+            num0.setText("");
+        } else {
+            Toast.makeText(getApplicationContext(), "No emergency number in this row", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void del2(View view) {
+        if (en1.length()>3) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("number1", " ");
+            editor.apply();
+            num1.setText("");
+        } else {
+            Toast.makeText(getApplicationContext(), "No emergency number in this row", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void del3(View view) {
+        if (en2.length()>3) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("number2", " ");
+            editor.apply();
+            num2.setText("");
+        } else {
+            Toast.makeText(getApplicationContext(), "No emergency number in this row", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void del4(View view) {
+        if (en3.length()>3) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("number3", " ");
+            editor.apply();
+            num3.setText("");
+        } else {
+            Toast.makeText(getApplicationContext(), "No emergency number in this row", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void del5(View view) {
+        if (en4.length()>3) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("number4", " ");
+            editor.apply();
+            num4.setText("");
+        } else {
+            Toast.makeText(getApplicationContext(), "No emergency number in this row", Toast.LENGTH_SHORT).show();
+        }
     }
 }

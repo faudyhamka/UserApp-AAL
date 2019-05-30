@@ -97,7 +97,6 @@ public class SensorReceiverService extends WearableListenerService {
         int accuracy = dataMap.getInt(DataMapKeys.ACCURACY);
         long timestamp = dataMap.getLong(DataMapKeys.TIMESTAMP);
         float[] values = dataMap.getFloatArray(DataMapKeys.VALUES);
-        Log.d("Hehehe", dataMap.getInt(DataMapKeys.ACCURACY) + " " + dataMap.getLong(DataMapKeys.TIMESTAMP) + " " + Arrays.toString(dataMap.getFloatArray(DataMapKeys.VALUES)));
         Log.d(TAG, "Received sensor data " + sensorType + " = " + Arrays.toString(values) + " timestamp:" + timestamp + " start time:" + startTime);
         // Save to database if Start time more than 0
         if (startTime > 0) {

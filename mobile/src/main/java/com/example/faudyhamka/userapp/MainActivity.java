@@ -329,22 +329,21 @@ public class MainActivity extends AppCompatActivity {
                                 String message = "HEARTRATE ABNORMALITY DETECTED! A heart rate abnormality on your family member has been detected, open your Ambient Assisted Living app to check their location!";
 
                                 Log.i("family number", "familynumber size");
-                                if ((eN1 != null) && (eN1.length() > 3)){
-                                    sms.sendTextMessage(eN1, null, message, null, null);}
-                                if ((eN2 != null) && (eN2.length() > 3)){
-                                    sms.sendTextMessage(eN2, null, message, null, null);}
-                                if ((eN3 != null) && (eN3.length() > 3)){
-                                    sms.sendTextMessage(eN3, null, message, null, null);}
-                                if ((eN4 != null) && (eN4.length() > 3)){
-                                    sms.sendTextMessage(eN4, null, message, null, null);}
-                                if ((eN5 != null) && (eN5.length() > 3)){
-                                    sms.sendTextMessage(eN5, null, message, null, null);}
-                            }
-                            // opt. Idle Warning Notif System
-                            if ((tmpHr < 100) && (tmpHr > 60)); {
-                                // if idle 10 menit
-                                Log.i("Idle Warning!", "Time to start moving, Got HR: " + tmpHr);
-                                showNotificationIdle();
+                                if ((eN1 != null) && (eN1.length() > 3)) {
+                                    sms.sendTextMessage(eN1, null, message, null, null);
+                                }
+                                if ((eN2 != null) && (eN2.length() > 3)) {
+                                    sms.sendTextMessage(eN2, null, message, null, null);
+                                }
+                                if ((eN3 != null) && (eN3.length() > 3)) {
+                                    sms.sendTextMessage(eN3, null, message, null, null);
+                                }
+                                if ((eN4 != null) && (eN4.length() > 3)) {
+                                    sms.sendTextMessage(eN4, null, message, null, null);
+                                }
+                                if ((eN5 != null) && (eN5.length() > 3)) {
+                                    sms.sendTextMessage(eN5, null, message, null, null);
+                                }
                             }
                         }
                     }
@@ -408,22 +407,6 @@ public class MainActivity extends AppCompatActivity {
         });
         request.setTag("Menu");
         queue.add(request);
-    }
-
-    public void showNotificationIdle() {
-        final NotificationManager mgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder note = new NotificationCompat.Builder(MainActivity.this);
-        note.setContentTitle("Idle Warning");
-        note.setContentText("You have been idle for too long, please start moving");
-        note.setTicker("IDLE WARNING!");
-        note.setAutoCancel(true);
-        note.setPriority(Notification.PRIORITY_HIGH);
-        note.setVibrate(new long[] {0, 100, 100, 100});
-        note.setDefaults(Notification.DEFAULT_SOUND);
-        note.setSmallIcon(R.mipmap.ic_launcher);
-        PendingIntent pi = PendingIntent.getActivity(MainActivity.this, 0, new Intent(MainActivity.this, MainActivity.class), 0);
-        note.setContentIntent(pi);
-        mgr.notify(693020, note.build());
     }
 
     public void showNotificationFall() {

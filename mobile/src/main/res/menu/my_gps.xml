@@ -14,4 +14,10 @@
         android:title="Save Home Location"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/a"
+        android:orderInCategory="100"
+        android:title="Test"
+        app:showAsAction="never" />
+
 </menu>

@@ -48,7 +48,7 @@ public class LocationShareService extends Service implements LocationListener, G
     GoogleApiClient client;
     LocationRequest request;
     LatLng latLngCurrent;
-    String lat, lng, ip;
+    String lat, lng, ip, Lat, Lon;
     Configuration conf = new Configuration();
     RequestQueue queue;
     SharedPreferences sharedpreferences, sharedPreferences;
@@ -79,6 +79,9 @@ public class LocationShareService extends Service implements LocationListener, G
         client.connect();
 
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        Lat = sharedPreferences.getString(inputLat, "");
+        Lon = sharedPreferences.getString(inputLon, "");
         ip = sharedpreferences.getString(inputIP, "");
     }
 
@@ -86,7 +89,7 @@ public class LocationShareService extends Service implements LocationListener, G
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(4000);
+        request.setInterval(2000);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -123,18 +126,13 @@ public class LocationShareService extends Service implements LocationListener, G
     @Override
     public void onLocationChanged(Location location) {
         latLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
-        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(inputLat) && sharedPreferences.contains(inputLon)) {
-            String Lat = sharedPreferences.getString(inputLat, ""), Lon = sharedPreferences.getString(inputLon, "");
-            if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
-                shareLocation();
-                a = true;
-            }
-/*            if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || () {
-                a = false;
-            }
-            if (checka != a) { if (a) {remoteSensorManager.StartXYZ();} else {remoteSensorManager.StopXYZ();} checka = a;}
-*/        }
+        if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
+            shareLocation();
+            a = true;
+        } else if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) < 0.0005)) {
+            a = false;
+        }
+//        if (checka != a) { if (a) {remoteSensorManager.StartXYZ();} else {remoteSensorManager.StopXYZ();} checka = a;}
     }
 
     public void shareLocation() {

@@ -24,12 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.app.ActionBar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -45,9 +39,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -65,7 +56,6 @@ public class MyGPS extends AppCompatActivity
     LatLng latLngCurrent;
     Marker marker;
     SharedPreferences sharedPreferences;
-    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +150,11 @@ public class MyGPS extends AppCompatActivity
                 editor.putString(inputLon, b);
                 editor.apply();
                 Toast.makeText(getApplicationContext(), "Home location added : ("+a+","+b+")", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.a:
+                String c = Double.toString(latLngCurrent.latitude);
+                String d = Double.toString(latLngCurrent.longitude);
+                Toast.makeText(getApplicationContext(), "("+c+","+d+")", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

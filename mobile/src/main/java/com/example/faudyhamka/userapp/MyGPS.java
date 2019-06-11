@@ -40,6 +40,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class MyGPS extends AppCompatActivity
@@ -56,6 +58,7 @@ public class MyGPS extends AppCompatActivity
     LatLng latLngCurrent;
     Marker marker;
     SharedPreferences sharedPreferences;
+    Calendar calendar; SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +99,7 @@ public class MyGPS extends AppCompatActivity
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(4000);
+        request.setInterval(2000);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -154,7 +157,10 @@ public class MyGPS extends AppCompatActivity
             case R.id.a:
                 String c = Double.toString(latLngCurrent.latitude);
                 String d = Double.toString(latLngCurrent.longitude);
-                Toast.makeText(getApplicationContext(), "("+c+","+d+")", Toast.LENGTH_SHORT).show();
+                calendar = Calendar.getInstance();
+                simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                String e = simpleDateFormat.format(calendar.getTime());
+                Toast.makeText(getApplicationContext(), "("+c+","+d+") on "+e, Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

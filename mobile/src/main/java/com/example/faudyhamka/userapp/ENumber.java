@@ -61,7 +61,11 @@ public class ENumber extends AppCompatActivity {
                             editor.apply();
                             n.setNum(i, m);
                             break;
-                        } else if (i==5) {break;}
+                        }
+                        if (i==5) {
+                            Toast.makeText(getApplicationContext(), "Emergency Number List is Full", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                         i++;
                     }
                     Intent myIntent = new Intent(ENumber.this,Menu.class);

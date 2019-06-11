@@ -58,9 +58,9 @@ public class IPAge extends AppCompatActivity {
                 if ((IP.getText().toString().length() == 0) && (Age.getText().toString().length() == 0)) {
                     Toast.makeText(getApplicationContext(), "Please fill both forms", Toast.LENGTH_SHORT).show();
                 } else if ((IP.getText().toString().length() == 0) && (Age.getText().toString().length() != 0)) {
-                    Toast.makeText(getApplicationContext(), "Please fill your Age", Toast.LENGTH_SHORT).show();
-                } else if ((Age.getText().toString().length() == 0) && (IP.getText().toString().length() != 0)) {
                     Toast.makeText(getApplicationContext(), "Please fill your IP Address", Toast.LENGTH_SHORT).show();
+                } else if ((Age.getText().toString().length() == 0) && (IP.getText().toString().length() != 0)) {
+                    Toast.makeText(getApplicationContext(), "Please fill your Age", Toast.LENGTH_SHORT).show();
                 } else {
                     sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                     String n = IP.getText().toString();

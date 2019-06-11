@@ -49,7 +49,6 @@ public class LocationShareService extends Service implements LocationListener, G
     LocationRequest request;
     LatLng latLngCurrent;
     String lat, lng, ip, Lat, Lon;
-    Configuration conf = new Configuration();
     RequestQueue queue;
     SharedPreferences sharedpreferences, sharedPreferences;
     boolean a = false, checka = false;
@@ -126,34 +125,30 @@ public class LocationShareService extends Service implements LocationListener, G
     @Override
     public void onLocationChanged(Location location) {
         latLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
+        lat = String.valueOf(latLngCurrent.latitude); lng = String.valueOf(latLngCurrent.longitude);
         if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
-            shareLocation();
+            try {
+                JSONObject loc = new JSONObject();
+                loc.put("lat", lat);
+                loc.put("lon", lng);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://" +ip+ ":3000/location", loc,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {}
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+                request.setTag("Map");
+                queue.add(request);
+            } catch (Exception e) { e.printStackTrace(); }
             a = true;
         } else if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) < 0.0005)) {
             a = false;
         }
 //        if (checka != a) { if (a) {remoteSensorManager.StartXYZ();} else {remoteSensorManager.StopXYZ();} checka = a;}
-    }
-
-    public void shareLocation() {
-        lat = String.valueOf(latLngCurrent.latitude); lng = String.valueOf(latLngCurrent.longitude);
-        try {
-            JSONObject location = new JSONObject();
-            location.put("lat", lat);
-            location.put("lon", lng);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://" +ip+ ".ngrok.io/location", location,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {}
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            });
-            request.setTag("Map");
-            queue.add(request);
-        } catch (Exception e) { e.printStackTrace(); }
     }
 
     @Override

@@ -14,7 +14,6 @@ public class Menu extends AppCompatActivity {
     public static final String inputIP = "input_IP";
     public static final String inputAge = "input_Age";
     Configuration conf = new Configuration();
-    Number n = new Number();
     Button buttip, butten, buttmenu, buttmap;
     SharedPreferences sharedpreferences;
 

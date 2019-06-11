@@ -67,12 +67,11 @@ public class MainActivity extends AppCompatActivity {
     int stateactivity;
     Calendar calendar;
     String Timestamp, Timestamp2, Timestamp3;
-    SimpleDateFormat simpleDateFormat, simpleDateFormat1, simpleDateFormat2, simpleDateFormat3;
+    SimpleDateFormat simpleDateFormat, simpleDateFormat2, simpleDateFormat3;
 
-    Configuration conf = new Configuration();
-    Number num = new Number();
-    SharedPreferences sharedpreferences, sharedPreferences;
     RequestQueue queue;
+    Configuration conf = new Configuration();
+    SharedPreferences sharedpreferences, sharedPreferences;
 
     //Save age for heartrate processing
     public int ageValue2;
@@ -206,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     Timestamp = simpleDateFormat.format(calendar.getTime());
                     JSONObject fstate = new JSONObject();
                     fstate.put("fstate", Timestamp);
-                    POST("http://"+ip+".ngrok.io/fstate", fstate);
+                    POST("http://"+ip+ ":3000/fstate", fstate);
 
                     //11. in Raspberry SMS Gateway
                     //Check permission for SMS gateway
@@ -253,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject hrate = new JSONObject();
                     hrate.put("hrate", Hrate);
                     hrate.put("time", Timestamp);
-                    POST("http://"+ip+".ngrok.io/hrate",hrate);
+                    POST("http://"+ip+ ":3000/hrate",hrate);
 
                     //9. Raspberry Heart Rate State
                     if (tmpHr < 60.0) { //(tmpHr< 60.0)
@@ -273,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                         Timestamp = simpleDateFormat.format(calendar.getTime());
                         JSONObject hstate = new JSONObject();
                         hstate.put("hstate", Timestamp);
-                        POST("http://"+ip+".ngrok.io/hstate",hstate);
+                        POST("http://"+ip+ ":3000/hstate",hstate);
 
                         //11. Raspberry SMS Gateway
                         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -318,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                             Timestamp = simpleDateFormat.format(calendar.getTime());
                             JSONObject hstate2 = new JSONObject();
                             hstate2.put("hstate", "H"+Timestamp);
-                            POST("http://"+ip+".ngrok.io/hstate",hstate2);
+                            POST("http://"+ip+ ":3000/hstate",hstate2);
 
                             //11. Pengiriman Pesan Darurat Melalui SMS Gateway
                             if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {

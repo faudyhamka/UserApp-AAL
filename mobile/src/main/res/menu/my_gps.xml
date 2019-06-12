@@ -17,7 +17,7 @@
     <item
         android:id="@+id/a"
         android:orderInCategory="100"
-        android:title="Test"
+        android:title="Current Coordinate"
         app:showAsAction="never" />
 
 </menu>

@@ -49,7 +49,7 @@ public class IPAge extends AppCompatActivity {
             }
 
         };
-        //IP.setFilters(filters);
+        IP.setFilters(filters);
         Age = (EditText) findViewById(R.id.editAge);
         btnStore = (Button) findViewById(R.id.buttStore);
 

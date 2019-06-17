@@ -1,5 +1,6 @@
 package com.example.faudyhamka.userapp;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class Menu extends AppCompatActivity {
     public static final String mypreference = "mypref";
@@ -29,6 +32,26 @@ public class Menu extends AppCompatActivity {
         String ip = sharedpreferences.getString(inputIP, "");
         String name = sharedpreferences.getString(inputAge, "");
         conf.setIP(ip); conf.setAge(name);
+
+        if(!isServiceRunning(getApplicationContext(),LocationShareService.class))
+        {
+            Intent myIntent = new Intent(Menu.this,LocationShareService.class);
+            startService(myIntent);
+        }
+    }
+
+    public boolean isServiceRunning(Context c, Class<?> serviceClass) {
+        ActivityManager activityManager = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+
+        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
+            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void goToIPAge(View view)

@@ -133,17 +133,6 @@ public class MyGPS extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.shareloc:
-                if(isServiceRunning(getApplicationContext(),LocationShareService.class))
-                {
-                    Toast.makeText(getApplicationContext(),"You are already sharing your location.",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Intent myIntent = new Intent(MyGPS.this,LocationShareService.class);
-                    startService(myIntent);
-                }
-                break;
             case R.id.homeinit:
                 sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
                 String a = Double.toString(latLngCurrent.latitude);
@@ -183,19 +172,5 @@ public class MyGPS extends AppCompatActivity
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    public boolean isServiceRunning(Context c, Class<?> serviceClass) {
-        ActivityManager activityManager = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
-
-        List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
-
-
-        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
-            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

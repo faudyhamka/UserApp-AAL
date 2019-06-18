@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.List;
 
 public class Menu extends AppCompatActivity {
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
     public static final String mypreference = "mypref";
     public static final String inputIP = "input_IP";
     public static final String inputAge = "input_Age";
@@ -84,5 +86,17 @@ public class Menu extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Please go to configuration page first", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
     }
 }

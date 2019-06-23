@@ -125,30 +125,36 @@ public class LocationShareService extends Service implements LocationListener, G
     @Override
     public void onLocationChanged(Location location) {
         latLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
-        lat = String.valueOf(latLngCurrent.latitude); lng = String.valueOf(latLngCurrent.longitude);
-        if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
-            try {
-                JSONObject loc = new JSONObject();
-                loc.put("lat", lat);
-                loc.put("lon", lng);
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://" +ip+ ":3000/location", loc,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {}
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                });
-                request.setTag("Map");
-                queue.add(request);
-            } catch (Exception e) { e.printStackTrace(); }
-            a = true;
-        } else if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) < 0.0005)) {
-            a = false;
-        }
+        if (sharedPreferences.contains(inputLat) && sharedPreferences.contains(inputLon)) {
+            lat = String.valueOf(latLngCurrent.latitude);
+            lng = String.valueOf(latLngCurrent.longitude);
+            if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) > 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) > 0.0005)) {
+                try {
+                    JSONObject loc = new JSONObject();
+                    loc.put("lat", lat);
+                    loc.put("lon", lng);
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://" + ip + ":3000/location", loc,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
+                    request.setTag("Map");
+                    queue.add(request);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                a = true;
+            } else if ((Math.abs(Double.parseDouble(Lat) - latLngCurrent.latitude) < 0.0005) || (Math.abs(Double.parseDouble(Lon) - latLngCurrent.longitude) < 0.0005)) {
+                a = false;
+            }
 //        if (checka != a) { if (a) {remoteSensorManager.StartXYZ();} else {remoteSensorManager.StopXYZ();} checka = a;}
+        }
     }
 
     @Override

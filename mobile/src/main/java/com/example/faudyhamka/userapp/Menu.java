@@ -87,16 +87,4 @@ public class Menu extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please go to configuration page first", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public void onBackPressed()
-    {
-        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
-        {
-            super.onBackPressed();
-            return;
-        }
-        else { Toast.makeText(getBaseContext(), "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show(); }
-
-        mBackPressed = System.currentTimeMillis();
-    }
 }
